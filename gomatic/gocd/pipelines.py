@@ -375,12 +375,12 @@ class Pipeline(CommonEqualityMixin, EnvironmentVariableMixin):
         return 'Pipeline("%s", "%s")' % (self.name, self.parent)
 
     def set_automatic_pipeline_locking(self):
-        self.element.attrib['isLocked'] = 'true'
+        self.element.attrib['lockBehavior'] = 'unlockWhenFinished'
         return self
 
     @property
     def has_automatic_pipeline_locking(self):
-        return 'isLocked' in self.element.attrib and self.element.attrib['isLocked'] == 'true'
+        return 'lockBehavior' in self.element.attrib and self.element.attrib['lockBehavior'] in ('lockOnFailure','unlockWhenFinished')
 
     @property
     def has_lock_behavior(self):
